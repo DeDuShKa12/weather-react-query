@@ -2,6 +2,7 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@tanstack/react-query": "^5.81.5",
     "@testing-library/dom": "^10.4.0",
@@ -23,7 +24,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "start": "vite preview"
   },
   "eslintConfig": {
     "extends": [

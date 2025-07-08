@@ -19,7 +19,10 @@ const CityCardWeather = ({
   onOpenModal,
 }: CityCardWeatherProps) => {
   const { data, refetch, isLoading, isFetching } =
-    WeatherService.useWeatherByCityName(city);
+    WeatherService.useWeatherByCityName(city, {
+      enabled: !isModalOpen,
+    });
+
   const icon = data?.weather[0]?.icon;
   const iconUrl = icon
     ? `https://openweathermap.org/img/wn/${icon}@2x.png`

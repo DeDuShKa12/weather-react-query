@@ -7,8 +7,9 @@ const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalCity, setModalCity] = useState<string | null>(null);
   const [newCity, setNewCity] = useState("");
+  
   const [defaultCities, setDefaultCities] = useState<string[]>(() => {
     const stored = localStorage.getItem("cities");
     return stored ? JSON.parse(stored) : ["Kyiv", "Lviv", "Odesa", "Dnipro"];
@@ -28,9 +29,9 @@ const Home = () => {
 
   useEffect(() => {
     if (cityInQuery) {
-      setIsModalOpen(true);
+      setModalCity(cityInQuery);
     } else {
-      setIsModalOpen(false);
+      setModalCity(null);
     }
   }, [cityInQuery]);
 
@@ -47,12 +48,10 @@ const Home = () => {
   };
 
   const openModal = (city: string) => {
-    setIsModalOpen(true);
     navigate(`/?city=${encodeURIComponent(city)}`);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
     navigate(`/`);
   };
 
@@ -98,7 +97,7 @@ const Home = () => {
             <CityCardWeather
               key={city}
               city={city}
-              isModalOpen={isModalOpen}
+              isModalOpen={modalCity === city}
               closeModal={closeModal}
               onRemove={handleRemoveCity}
               onOpenModal={openModal}

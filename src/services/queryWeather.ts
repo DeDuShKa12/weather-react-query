@@ -1,17 +1,21 @@
 import axios from "axios";
 import { urls } from "../configs/urls";
 import {
+  QueryKey,
   useMutation,
   UseMutationOptions,
   useQuery,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import { ApiError, WeatherResponse } from "../interfaces/weatherInterfaces";
+import { ApiError, ForecastResponse, WeatherResponse } from "../interfaces/weatherInterfaces";
 
 export const WeatherService = {
   useWeatherByCityName: (
     cityName: string,
-    options?: UseQueryOptions<WeatherResponse, ApiError>
+    options?: Omit<
+      UseQueryOptions<WeatherResponse, ApiError, WeatherResponse, QueryKey>,
+      "queryKey" | "queryFn"
+    >
   ) => {
     const req = async () => {
       const res = await axios.get(urls.wetherByCityName(cityName));
@@ -43,16 +47,18 @@ export const WeatherService = {
   },
   useWetherDetailsByCityName: (
     cityName: string,
-    options?: UseQueryOptions<any, ApiError>
+    options?: UseQueryOptions<ForecastResponse, ApiError>
   ) => {
     const req = async () => {
       console.log(urls.wetherDetailsByCityName(cityName));
 
       const res = await axios.get(urls.wetherDetailsByCityName(cityName));
+      console.log(res.data);
+      
       return res.data;
     };
 
-    return useQuery<any, ApiError>({
+    return useQuery<ForecastResponse, ApiError>({
       queryKey: ["useWetherDetailsByCityName", cityName],
       queryFn: req,
       ...options,
