@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, useLocation, useNavigate } from "react-router-dom";
 
 import { Home } from "../src/pages/Home";
 import * as WeatherService from "../src/services/queryWeather";
@@ -20,7 +20,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("Home component", () => {
   const mockNavigate = jest.fn();
-  const mockUseLocation = require("react-router-dom").useLocation;
+  const mockUseLocation = useLocation as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -29,8 +29,7 @@ describe("Home component", () => {
       search: "",
     });
 
-    const { useNavigate } = require("react-router-dom");
-    useNavigate.mockReturnValue(mockNavigate);
+    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
 
     mockUseWeatherByCityName.mockReturnValue({
       data: {

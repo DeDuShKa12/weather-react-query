@@ -14,6 +14,7 @@ export default [
   ...tseslint.configs.recommended,
   {
     files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
+    ignores: ["dist/**/*", "node_modules/**/*", "coverage/**/*"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -36,6 +37,7 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
+      "no-inline-comments": "error",
       "import/order": [
         "warn",
         {

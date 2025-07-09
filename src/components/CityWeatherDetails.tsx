@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
+import { ForecastItem } from "../interfaces/weatherInterfaces";
 import { WeatherService } from "../services/queryWeather";
 
 import { Spiner } from "./Spiner";
-import { ForecastItem } from "../interfaces/weatherInterfaces";
 
 const CityDetails = ({ city }: { city: string }) => {
   console.log({ city });
@@ -23,7 +23,7 @@ const CityDetails = ({ city }: { city: string }) => {
   const data =
     hourly?.map((h: ForecastItem) => ({
       time: new Date(h.dt * 1000).getHours() + ":00",
-      temp: h.main.temp,
+      temp: Math.round(h.main.temp),
     })) || [];
 
   return (
@@ -38,7 +38,7 @@ const CityDetails = ({ city }: { city: string }) => {
               <h2 className="text-3xl font-bold text-blue-800 capitalize">{city}</h2>
               <p className="text-gray-600">
                 {weather.weather[0].description},{" "}
-                <span className="font-semibold">{weather.main.temp}°C</span>
+                <span className="font-semibold">{Math.round(weather.main.temp)}°C</span>
               </p>
             </div>
           </div>

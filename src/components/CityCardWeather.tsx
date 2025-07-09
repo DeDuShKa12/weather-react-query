@@ -46,7 +46,7 @@ const CityCardWeather = ({
             {data ? (
               <p className="text-gray-600 mt-1 capitalize">
                 {data.weather[0].description},{" "}
-                <span className="font-semibold">{data.main.temp}°C</span>
+                <span className="font-semibold">{Math.round(data.main.temp)}°C</span>
               </p>
             ) : (
               <p className="text-gray-400 mt-1">Loading data...</p>
