@@ -1,34 +1,27 @@
 import { useMemo } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+
 import { WeatherService } from "../services/queryWeather";
+
 import { Spiner } from "./Spiner";
+import { ForecastItem } from "../interfaces/weatherInterfaces";
 
 const CityDetails = ({ city }: { city: string }) => {
   console.log({ city });
 
-  const { data: weather, isLoading } =
-    WeatherService.useWeatherByCityName(city);
+  const { data: weather, isLoading } = WeatherService.useWeatherByCityName(city);
   const { data: detailedWeather, isLoading: isLoadingDetails } =
-    WeatherService.useWetherDetailsByCityName(city);
+    WeatherService.useWeatherDetailsByCityName(city);
 
   const hourly = useMemo(() => {
     return detailedWeather?.list?.slice(0, 12) || [];
   }, [detailedWeather]);
 
   const iconCode = weather?.weather[0]?.icon;
-  const iconUrl = iconCode
-    ? `https://openweathermap.org/img/wn/${iconCode}@2x.png`
-    : "";
+  const iconUrl = iconCode ? `https://openweathermap.org/img/wn/${iconCode}@2x.png` : "";
 
   const data =
-    hourly?.map((h: any) => ({
+    hourly?.map((h: ForecastItem) => ({
       time: new Date(h.dt * 1000).getHours() + ":00",
       temp: h.main.temp,
     })) || [];
@@ -39,16 +32,10 @@ const CityDetails = ({ city }: { city: string }) => {
         <>
           <div className="flex items-center gap-4 mb-4">
             {iconUrl && (
-              <img
-                src={iconUrl}
-                alt="weather icon"
-                className="w-16 h-16 object-contain"
-              />
+              <img src={iconUrl} alt="weather icon" className="w-16 h-16 object-contain" />
             )}
             <div>
-              <h2 className="text-3xl font-bold text-blue-800 capitalize">
-                {city}
-              </h2>
+              <h2 className="text-3xl font-bold text-blue-800 capitalize">{city}</h2>
               <p className="text-gray-600">
                 {weather.weather[0].description},{" "}
                 <span className="font-semibold">{weather.main.temp}°C</span>
@@ -56,9 +43,7 @@ const CityDetails = ({ city }: { city: string }) => {
             </div>
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">
-            Hourly Temperature Forecast
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Hourly Temperature Forecast</h3>
 
           <div className="w-full h-72 bg-white rounded-lg py-4 pr-4 border">
             <ResponsiveContainer width="100%" height="100%">
@@ -85,7 +70,7 @@ const CityDetails = ({ city }: { city: string }) => {
         </>
       )}
 
-      {(isLoadingDetails || isLoading) && <Spiner className="absolute top-1 right-8"/>}
+      {(isLoadingDetails || isLoading) && <Spiner className="absolute top-1 right-8" />}
     </div>
   );
 };

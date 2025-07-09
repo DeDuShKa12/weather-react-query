@@ -1,13 +1,13 @@
-import {urls, baseURL} from "../configs/urls"
-import axios from 'axios';
+import axios from "axios";
+
+import { urls, baseURL } from "../configs/urls";
 
 const axiosService = axios.create({ baseURL });
 
 const weatherServices = {
-    getWetherByCityName: (cityName: string) => axiosService.get(urls.wetherByCityName(cityName)),
-    getWetherDetailsByCityName: (cityName: string) => axiosService.get(urls.wetherDetailsByCityName(cityName)),
-}
+  getWeatherByCityName: (cityName: string) => axiosService.get(urls.WeatherByCityName(cityName)),
+  getWeatherDetailsByCityName: (cityName: string) =>
+    axiosService.get(urls.WeatherDetailsByCityName(cityName)),
+};
 
-export {
-    weatherServices
-}
+export { weatherServices };

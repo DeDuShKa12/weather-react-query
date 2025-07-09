@@ -18,6 +18,7 @@ const Modal = ({ children, onClose }: ModalProps) => {
     <div
       ref={backdropRef}
       onClick={handleBackdropClick}
+      data-testid="modal-backdrop"
       className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center"
     >
       <div className="relative bg-white rounded-xl shadow-xl w-full max-w-3xl mx-4 sm:mx-0">

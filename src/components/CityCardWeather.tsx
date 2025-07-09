@@ -1,4 +1,5 @@
 import { WeatherService } from "../services/queryWeather";
+
 import { Modal } from "./Modal";
 import { CityDetails } from "./CityWeatherDetails";
 import { Spiner } from "./Spiner";
@@ -18,15 +19,12 @@ const CityCardWeather = ({
   onRemove,
   onOpenModal,
 }: CityCardWeatherProps) => {
-  const { data, refetch, isLoading, isFetching } =
-    WeatherService.useWeatherByCityName(city, {
-      enabled: !isModalOpen,
-    });
+  const { data, refetch, isLoading, isFetching } = WeatherService.useWeatherByCityName(city, {
+    enabled: !isModalOpen,
+  });
 
   const icon = data?.weather[0]?.icon;
-  const iconUrl = icon
-    ? `https://openweathermap.org/img/wn/${icon}@2x.png`
-    : "";
+  const iconUrl = icon ? `https://openweathermap.org/img/wn/${icon}@2x.png` : "";
 
   return (
     <>
@@ -42,17 +40,9 @@ const CityCardWeather = ({
           onClick={() => onOpenModal(city)}
           className="cursor-pointer group flex items-center gap-4"
         >
-          {icon && (
-            <img
-              src={iconUrl}
-              alt="weather icon"
-              className="w-16 h-16 object-contain"
-            />
-          )}
+          {icon && <img src={iconUrl} alt="weather icon" className="w-16 h-16 object-contain" />}
           <div>
-            <h2 className="text-xl font-bold text-gray-800 group-hover:underline">
-              {city}
-            </h2>
+            <h2 className="text-xl font-bold text-gray-800 group-hover:underline">{city}</h2>
             {data ? (
               <p className="text-gray-600 mt-1 capitalize">
                 {data.weather[0].description},{" "}

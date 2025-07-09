@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import { CityCardWeather } from "../components/CityCardWeather";
 import { WeatherService } from "../services/queryWeather";
 
@@ -9,7 +10,7 @@ const Home = () => {
 
   const [modalCity, setModalCity] = useState<string | null>(null);
   const [newCity, setNewCity] = useState("");
-  
+
   const [defaultCities, setDefaultCities] = useState<string[]>(() => {
     const stored = localStorage.getItem("cities");
     return stored ? JSON.parse(stored) : ["Kyiv", "Lviv", "Odesa", "Dnipro"];
@@ -62,9 +63,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 to-blue-200 py-10 px-4">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-extrabold text-center text-blue-900 mb-6">
-          Weather Forecast
-        </h1>
+        <h1 className="text-3xl font-extrabold text-center text-blue-900 mb-6">Weather Forecast</h1>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           <input

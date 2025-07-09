@@ -61,7 +61,7 @@ export interface ForecastResponse {
   };
 }
 
-interface ForecastItem {
+export interface ForecastItem {
   dt: number;
   dt_txt: string;
   main: {
@@ -81,7 +81,6 @@ interface ForecastItem {
     ["3h"]: number;
   };
 }
-
 
 export interface ApiError {
   cod: number;

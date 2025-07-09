@@ -1,5 +1,4 @@
 import axios from "axios";
-import { urls } from "../configs/urls";
 import {
   QueryKey,
   useMutation,
@@ -7,6 +6,8 @@ import {
   useQuery,
   UseQueryOptions,
 } from "@tanstack/react-query";
+
+import { urls } from "../configs/urls";
 import { ApiError, ForecastResponse, WeatherResponse } from "../interfaces/weatherInterfaces";
 
 export const WeatherService = {
@@ -18,7 +19,7 @@ export const WeatherService = {
     >
   ) => {
     const req = async () => {
-      const res = await axios.get(urls.wetherByCityName(cityName));
+      const res = await axios.get(urls.WeatherByCityName(cityName));
       return res.data;
     };
 
@@ -29,14 +30,10 @@ export const WeatherService = {
     });
   },
   useWeatherByCityNameMutation: (
-    options?: UseMutationOptions<
-      WeatherResponse,
-      ApiError,
-      { cityName: string }
-    >
+    options?: UseMutationOptions<WeatherResponse, ApiError, { cityName: string }>
   ) => {
     const req = async ({ cityName }: { cityName: string }) => {
-      const res = await axios.get(urls.wetherByCityName(cityName));
+      const res = await axios.get(urls.WeatherByCityName(cityName));
       return res.data;
     };
 
@@ -45,21 +42,21 @@ export const WeatherService = {
       ...options,
     });
   },
-  useWetherDetailsByCityName: (
+  useWeatherDetailsByCityName: (
     cityName: string,
     options?: UseQueryOptions<ForecastResponse, ApiError>
   ) => {
     const req = async () => {
-      console.log(urls.wetherDetailsByCityName(cityName));
+      console.log(urls.WeatherDetailsByCityName(cityName));
 
-      const res = await axios.get(urls.wetherDetailsByCityName(cityName));
+      const res = await axios.get(urls.WeatherDetailsByCityName(cityName));
       console.log(res.data);
-      
+
       return res.data;
     };
 
     return useQuery<ForecastResponse, ApiError>({
-      queryKey: ["useWetherDetailsByCityName", cityName],
+      queryKey: ["useWeatherDetailsByCityName", cityName],
       queryFn: req,
       ...options,
     });
